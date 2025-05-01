@@ -5,7 +5,7 @@ import Footer from '../components/Footer/Footer'
 
 export default function Main() {
   return (
-    <div>
+    <div className='w-screen border'>
         <Navbar></Navbar>
         <Outlet></Outlet>
         <Footer></Footer>
