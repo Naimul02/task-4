@@ -5,10 +5,10 @@ import Footer from '../components/Footer/Footer'
 
 export default function Main() {
   return (
-    <div className='w-screen border'>
-        <Navbar></Navbar>
+    <div className=''>
+        {/* <Navbar></Navbar> */}
         <Outlet></Outlet>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
     </div>
   )
 }

@@ -5,8 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 
-// import useToken from '../hooks/useToken';
-import { toast } from 'react-toastify';
+import login from '../img/login.png'
+import {toast} from 'react-hot-toast'
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import {doc , setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase.config';
@@ -19,14 +19,11 @@ const Signup = () => {
   const { createUser, profileUpdate, emailVerification } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const [creactedUserEmail, setCreatedUserEmail] = useState("");
-  // const [token] = useToken(creactedUserEmail);
   const navigate = useNavigate();
 
 
 
-  // if (token) {
-  //   navigate('/');
-  // }
+  
 
   const handleSignUp = async(data) => {
     
@@ -101,32 +98,41 @@ const Signup = () => {
 
   }
   return (
+
+    <div className='h-screen flex items-center my-40 lg:my-0'>
+
+
     <form onSubmit={handleSubmit(handleSignUp)} className="hero">
 
-      <div className="hero-content flex-col gap-20 lg:gap-40 lg:flex-row">
+      <div className="hero-content flex-col gap-16 lg:flex-row">
       <div className="text-center lg:text-left max-w-lg">
-            <img className='login' src="https://i.gifer.com/IGCF.gif" alt="" />
+            <img className='login' src={login} alt="" />
           </div>
 
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <h1 className='text-2xl font-bold text-center mt-4'>SignUp</h1>
+        <div className="flex-shrink-0 w-full max-w-sm">
+          <div>
 
-          <div className="card-body">
+          <h1 className='text-2xl font-bold  mt-4'>Hello , Welcome</h1>
+          
+          <p className='max-w-xs'>Please Enter your details below , to Continue</p>
+          </div>
+
+          <div className="mt-4">
             <div className="form-control" style={{ border: 'none' }}>
 
 
               <input {...register("name", { required: true })} type="text" placeholder="Enter Your Name" className="input input-bordered w-full" />
             </div>
-            <div className="form-control" style={{ border: 'none' }}>
+            <div className="form-control my-5" style={{ border: 'none' }}>
             
             <input type="file" className="file-input file-input-bordered  w-full hover:cursor-pointer"{...register('photourl' ,  {required : true})} />
-              {/* <input {...register('photourl', { required: true })} type="text" placeholder="Photo URL" className="input input-bordered w-full" /> */}
+              
             </div>
             <div className="form-control" style={{ border: 'none' }}>
 
               <input {...register("email", { required: true })} type="email" placeholder="Enter Your Email" className="input input-bordered w-full" />
             </div>
-            <div className="form-control" style={{ border: 'none' }}>
+            <div className="form-control my-5" style={{ border: 'none' }}>
 
               <input {...register("password", { required: true })} type="password" placeholder="password" className="input input-bordered w-full" />
               <label className="label">
@@ -134,12 +140,13 @@ const Signup = () => {
               </label>
             </div>
             <div className="form-control" style={{ border: 'none', width: '100%' }}>
-            <button className="btn btn-active text-white bg-[#65ad07] hover:bg-[#549401] w-full">Signup</button>
+            <button className="btn btn-active text-white bg-purple-600 rounded-full w-full">Signup</button>
             </div>
           </div>
         </div>
       </div>
     </form >
+    </div>
   );
 };
 

@@ -5,46 +5,63 @@ import React, { useContext, useEffect, useState } from "react";
 import { db } from "../firebase/firebase.config";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { ChatContext } from "../AuthProvider/ChatContext";
+import { collection, getDocs } from "firebase/firestore";
 
 const Chats = () => {
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState({});
 
   const { user: currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
 
-  useEffect(() => {
-    const getChats = () => {
-      const unsub = onSnapshot(doc(db, "userChats", currentUser?.uid), (doc) => {
-        setChats(doc.data());
-      });
+  
 
-      return () => {
-        unsub();
-      };
-    };
+  
 
-    currentUser?.uid && getChats();
-  }, [currentUser?.uid]);
+  
+
+const [allUsers, setAllUsers] = useState([]);
+
+useEffect(() => {
+  const fetchUsers = async () => {
+    const usersRef = collection(db, "users");
+    const usersSnap = await getDocs(usersRef);
+    const usersList = usersSnap.docs
+      .map((doc) => ({ uid: doc.id, ...doc.data() }))
+      .filter((user) => user.uid !== currentUser?.uid);
+
+    setAllUsers(usersList);
+  };
+
+  if (currentUser?.uid) {
+    fetchUsers();
+  }
+}, [currentUser?.uid]);
 
   const handleSelect = (u) => {
     dispatch({ type: "CHANGE_USER", payload: u });
   };
 
   return (
-    <div className="chats">
-      {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
-        <div
-          className="userChat flex items-center gap-2 space-y-2"
-          key={chat[0]}
-          onClick={() => handleSelect(chat[1].userInfo)}
-        >
-          <img className="w-12 h-12 rounded-full" src={chat[1].userInfo.photoURL} alt="" />
-          <div className="userChatInfo">
-            <span>{chat[1].userInfo.displayName}</span>
-            <p>{chat[1].lastMessage?.text}</p>
-          </div>
-        </div>
-      ))}
+    <div className="px-4">
+
+      <h2 className="mt-3 text-xl font-semibold">Messages</h2>
+      <div className="chats mt-4 ">
+      
+     <div className="lg:max-h-[300px] overflow-y-auto">
+     {allUsers.map((user) => (
+    <div
+      key={user.uid}
+      className="userChat flex items-center gap-2 my-2"
+      onClick={() => handleSelect(user)}
+    >
+      <img className="w-10 h-10 rounded-full" src={user.photoURL} alt="" />
+      <div className="userChatInfo hover:cursor-pointer">
+        <span className="font-semibold">{user.displayName}</span>
+      </div>
+    </div>
+  ))}
+     </div>
+    </div>
     </div>
   );
 };

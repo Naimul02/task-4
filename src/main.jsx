@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import router from './Router/router.jsx'
 import AuthProvider from './AuthProvider/AuthProvider.jsx'
 import { ChatContextProvider } from './AuthProvider/ChatContext.jsx'
+import { Toaster } from 'react-hot-toast'
 
 
 createRoot(document.getElementById('root')).render(
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
         <RouterProvider router={router}>
         </RouterProvider>
        </ChatContextProvider>
+        <Toaster />
     </AuthProvider>
   </StrictMode>,
 )

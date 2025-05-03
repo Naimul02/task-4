@@ -79,25 +79,44 @@ const Search = () => {
     setUsername("")
   };
   return (
+    <div className="px-4 ">
+      <h2 className="text-2xl font-semibold my-3">Chat</h2>
+
     <div className="search">
       <div className="searchForm">
+        <label className="input">
+      <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g
+      strokeLinejoin="round"
+      strokeLinecap="round"
+      strokeWidth="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </g>
+  </svg>
         <input
           type="text"
-          placeholder="Find a user"
+          placeholder="Search People or messages."
           onKeyDown={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
+          
         />
+        </label>
       </div>
       {err && <span>User not found!</span>}
       {user && (
-        <div className="userChat" onClick={handleSelect}>
-          <img  className="w-8 h-8 rounded-full"src={user.photoURL} alt="" />
+        <div className="userChat flex items-center hover:cursor-pointer mt-3 gap-4" onClick={handleSelect}>
+          <img  className="w-12 h-12 rounded-full"src={user.photoURL} alt="" />
           <div className="userChatInfo">
-            <span>{user.displayName}</span>
+            <span className="text-lg">{user.displayName}</span>
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

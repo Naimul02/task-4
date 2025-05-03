@@ -1,5 +1,5 @@
 {
-  "name": "task-3",
+  "name": "task-4",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -18,6 +18,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.1",
+    "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.5.1",
     "react-toastify": "^11.0.5",
@@ -36,5 +37,17 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.1"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Naimul02/task-4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Naimul02/task-4/issues"
+  },
+  "homepage": "https://github.com/Naimul02/task-4#readme"
 }

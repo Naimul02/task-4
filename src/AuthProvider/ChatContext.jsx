@@ -7,37 +7,37 @@ import {
 import { AuthContext } from "./AuthProvider";
   
   
-  export const ChatContext = createContext();
+
   
-  export const ChatContextProvider = ({ children }) => {
-    const { user: currentUser } = useContext(AuthContext);
-    const INITIAL_STATE = {
-      chatId: "null",
-      user: {},
-    };
-  
-    const chatReducer = (state, action) => {
-      switch (action.type) {
-        case "CHANGE_USER":
-          return {
-            user: action.payload,
-            chatId:
-              currentUser.uid > action.payload.uid
-                ? currentUser.uid + action.payload.uid
-                : action.payload.uid + currentUser.uid,
-          };
-  
-        default:
-          return state;
-      }
-    };
-  
-    const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
-  
-    return (
-      <ChatContext.Provider value={{ data:state, dispatch }}>
-        {children}
-      </ChatContext.Provider>
-    );
-  };
-  
+
+export const ChatContext = createContext();
+
+export const ChatContextProvider = ({ children }) => {
+  const { user } = useContext(AuthContext);
+  const [state, dispatch] = useReducer(chatReducer, {
+    chatId: "null",
+    user: {},
+  });
+
+  function chatReducer(state, action) {
+    switch (action.type) {
+      case "CHANGE_USER":
+        const newChatId =
+          user.uid > action.payload.uid
+            ? user.uid + action.payload.uid
+            : action.payload.uid + user.uid;
+        return {
+          chatId: newChatId,
+          user: action.payload,
+        };
+      default:
+        return state;
+    }
+  }
+
+  return (
+    <ChatContext.Provider value={{ data: state, dispatch }}>
+      {children}
+    </ChatContext.Provider>
+  );
+};
